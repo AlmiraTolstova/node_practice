@@ -1,0 +1,28 @@
+Создайте HTTP сервер, который работает как защищенное API для управления файлами. Сервер должен проверять заголовок Authorization и поддерживать разные HTTP методы (GET, POST, DELETE).
+
+Требования:
+Создайте проект secureFileAPI и файл server.js
+Импортируйте модули http, fs, path, events
+Создайте экземпляр EventEmitter
+
+Зарегистрируйте обработчики событий:
+authSuccess – выводит в консоль "[АУТФИКАЦИЯ] Успешный вход"
+authFailed – выводит в консоль "[АУТФИКАЦИЯ] Ошибка: неверный токен"
+fileAccess – выводит в консоль "[ДОСТУП] Запрошен файл"
+fileWrite – выводит в консоль "[ЗАПИСЬ] Создан/изменен файл"
+fileDelete – выводит в консоль "[УДАЛЕНИЕ] Удален файл"
+
+Создайте HTTP сервер со следующими маршрутами и методами:
+GET /files/example.txt – возвращает содержимое файла example.txt. Требует заголовок Authorization со значением Bearer secret-token-123
+POST /files/example.txt – принимает тело запроса и записывает его в файл example.txt. Требует заголовок Authorization
+DELETE /files/example.txt – удаляет файл example.txt. Требует заголовок Authorization
+GET /list – возвращает список всех файлов в текущей директории. Требует заголовок Authorization
+
+Настройте CORS заголовки для всех ответов:
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS
+Access-Control-Allow-Headers: Content-Type, Authorization
+
+Если заголовок Authorization отсутствует или неверен, возвращайте статус 401 и сообщение "Unauthorized"
+
+Запустите сервер на порту 3333
