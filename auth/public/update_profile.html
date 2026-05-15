@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Update Profile</title>
+
+    <style>
+      body {
+        font-family: Arial;
+        display: flex;
+        justify-content: center;
+        padding-top: 50px;
+        background: #f4f4f4;
+      }
+
+      .container {
+        width: 400px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      input,
+      button {
+        padding: 10px;
+      }
+
+      .user-info {
+        margin-bottom: 20px;
+        padding: 10px;
+        background: #eee;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Update profile</h2>
+
+      <div class="user-info">
+        <p>ID: <span id="id"></span></p>
+        <p>Username: <span id="usernameText"></span></p>
+        <p>Name: <span id="nameText"></span></p>
+        <p>Email: <span id="emailText"></span></p>
+      </div>
+
+      <form id="profileForm">
+        <input id="username" placeholder="new username" />
+
+        <input id="name" placeholder="new name" />
+
+        <input id="email" placeholder="new email" />
+
+        <button>Save</button>
+      </form>
+
+      <p id="message"></p>
+
+      <button id="logout">Logout</button>
+    </div>
+
+    <script>
+      const user = JSON.parse(localStorage.getItem("user"));
+
+      if (!user) {
+        window.location.href = "./login.html";
+      }
+
+      id.innerText = user.id;
+      usernameText.innerText = user.username;
+      nameText.innerText = user.name;
+      emailText.innerText = user.email;
+
+      profileForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const updatedUser = {
+          ...user,
+
+          username: username.value || user.username,
+
+          name: name.value || user.name,
+
+          email: email.value || user.email,
+        };
+
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+
+        message.innerText = "Profile updated";
+
+        setTimeout(() => {
+          location.reload();
+        }, 1000);
+      });
+
+      logout.onclick = () => {
+        localStorage.removeItem("user");
+
+        window.location.href = "./login.html";
+      };
+    </script>
+  </body>
+</html>
