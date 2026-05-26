@@ -7,13 +7,17 @@ import { connectDB } from "./db/index.js";
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3333;
+
+// middleware для JSON
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send("Hello");
 });
 
 app.use("/auth", authRouter);
-app.use("/posts", postRouter);
+app.use("/posts", postsRouter);
 
 connectDB()
   .then(() => {
