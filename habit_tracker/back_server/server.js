@@ -1,30 +1,24 @@
 import express from "express";
 import dotenv from "dotenv";
-import authRouter from "./routes/auth.js";
-// import postsRouter from "./routes/posts.js";
 import { connectDB } from "./db/index.js";
+import habitsRouter from "./routes/habits.js";
 
 dotenv.config();
 
 const app = express();
+
 const port = process.env.PORT || 3333;
 
-// middleware для JSON
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello");
-});
-
-app.use("/habit", authRouter);
-// app.use("/progress", postsRouter);
+app.use("/habits", habitsRouter);
 
 connectDB()
   .then(() => {
     app.listen(port, () => {
-      console.log(`Server is running at http://127.0.0.1:${port}`);
+      console.log(`Server running on http://127.0.0.1:${port}`);
     });
   })
-  .catch((err) => {
-    console.error("Failed to connect db and start server!", error);
+  .catch((error) => {
+    console.log(error);
   });
