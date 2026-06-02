@@ -3,12 +3,20 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import connectDB from "./db/index.js";
 
+import cartRoutes from "./routes/cartRoutes.js";
+
 dotenv.config();
 
 const app = express();
 
-const dbURI = process.env.MONGO_URI || "url";
+// const dbURI = process.env.MONGO_URI || "url";
 const port = process.env.PORT || 3000;
+
+app.use(express.json());
+
+connectDB();
+
+app.use("/api/cart", cartRoutes);
 
 // startServer();
 
