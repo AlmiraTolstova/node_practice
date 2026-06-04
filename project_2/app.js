@@ -9,7 +9,7 @@ dotenv.config();
 
 const app = express();
 
-// const dbURI = process.env.MONGO_URI || "url";
+const dbURI = process.env.MONGO_URI || "url";
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -18,21 +18,21 @@ connectDB();
 
 app.use("/api/cart", cartRoutes);
 
-// startServer();
+startServer();
 
-// async function startServer() {
-//   try {
-//     await mongoose.connect(dbURI);
+async function startServer() {
+  try {
+    await mongoose.connect(dbURI);
 
-//     console.log("Successfully connected to MongoDB!");
-//     app.listen(port, () => {
-//       console.log(`Server started at http://127.0.0.1:${port}`);
-//     });
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
+    console.log("Successfully connected to MongoDB!");
+    app.listen(port, () => {
+      console.log(`Server started at http://127.0.0.1:${port}`);
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-app.listen(port, () => {
-  console.log(`Server started at http://127.0.0.1:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Server started at http://127.0.0.1:${port}`);
+// });
