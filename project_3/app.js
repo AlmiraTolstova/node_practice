@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import connectDB from "./db/index.js";
+import balanceRoutes from "./routes/balanceRoutes.js";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ connectDB();
 
 startServer();
 
+app.use("/api/balance", balanceRoutes);
 async function startServer() {
   try {
     await mongoose.connect(dbURI);
