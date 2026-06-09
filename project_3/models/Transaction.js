@@ -9,6 +9,7 @@ const transactionSchema = new mongoose.Schema({
   amount: {
     type: Number,
     required: true,
+    min: 0,
   },
   date: {
     type: Date,
@@ -16,20 +17,4 @@ const transactionSchema = new mongoose.Schema({
   },
 });
 
-const userSchema = new mongoose.Schema({
-  initialBalance: {
-    type: Number,
-    required: true,
-  },
-
-  currentBalance: {
-    type: Number,
-    required: true,
-  },
-
-  transactions: [transactionSchema],
-});
-
-const User = mongoose.model("User", userSchema);
-
-export default User;
+export default mongoose.model("Transaction", transactionSchema);
