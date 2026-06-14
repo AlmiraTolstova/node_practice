@@ -48,8 +48,14 @@ router.post("/set-balance", async (req, res) => {
 // POST /api/balance/add-balance
 router.post("/add-balance", async (req, res) => {
   try {
-    const { amount } = req.body;
+    const { amount, userId } = req.body;
 
+    // Проверка наличия userId
+    if (!userId) {
+      return res.status(400).json({
+        message: "userId is required",
+      });
+    }
     // Проверка наличия суммы и типа
     if (amount === undefined) {
       return res.status(400).json({
@@ -68,7 +74,7 @@ router.post("/add-balance", async (req, res) => {
       });
     }
 
-    const user = await User.findOne();
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({
         message: "User not found",
@@ -103,7 +109,13 @@ router.post("/add-balance", async (req, res) => {
 // POST /api/balance/add-expense
 router.post("/add-expense", async (req, res) => {
   try {
-    const { amount } = req.body;
+    const { amount, userId } = req.body;
+
+    if (!userId) {
+      return res.status(400).json({
+        message: "userId is required",
+      });
+    }
 
     // Проверка наличия суммы и типа
     if (amount === undefined) {
@@ -123,7 +135,7 @@ router.post("/add-expense", async (req, res) => {
       });
     }
 
-    const user = await User.findOne();
+    const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({

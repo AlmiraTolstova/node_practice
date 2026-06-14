@@ -3,9 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./db/index.js";
 import balanceRoutes from "./routes/balanceRoutes.js";
 
-dotenv.config({
-  path: "/Users/almiratolstova/Documents/Projects/ICH/node_practice/project_3/.env",
-});
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
