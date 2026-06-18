@@ -1,5 +1,6 @@
 import User from "../models/User.js";
-
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 // export const registerUser = async (req, res) => {};
 // export const loginUser = async (req, res) => {};
 
@@ -54,8 +55,20 @@ export const loginUser = async (req, res) => {
       });
     }
 
+    const token = jwt.sign(
+      {
+        id: user._id,
+        email: user.email,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d",
+      },
+    );
+
     res.status(200).json({
       message: "Success!",
+      token,
       user: {
         id: user._id,
         name: user.name,
